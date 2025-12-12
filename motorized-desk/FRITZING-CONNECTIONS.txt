@@ -1,0 +1,69 @@
+# Lista de Conexões para Fritzing
+# Use este arquivo como referência para montar o circuito no Fritzing
+
+## Componentes necessários no Fritzing:
+- Arduino Uno (ou Nano)
+- HC-SR04 Ultrasonic Sensor
+- 2x Relay Module (5V)
+- 1x DC Motor
+- 4x Pushbutton
+- 1x Breadboard (grande)
+- Jumper wires
+- Power supply 12V (para o motor)
+
+## Conexões Passo a Passo:
+
+### 1. SENSOR ULTRASSÔNICO HC-SR04
+HC-SR04 VCC     --> Arduino 5V
+HC-SR04 TRIG    --> Arduino Digital Pin 2
+HC-SR04 ECHO    --> Arduino Digital Pin 3
+HC-SR04 GND     --> Arduino GND
+
+### 2. BOTÕES (com pull-up interno)
+Botão 1 (Subir Manual):
+  - Terminal 1  --> Arduino Digital Pin 4
+  - Terminal 2  --> Arduino GND
+
+Botão 2 (Descer Manual):
+  - Terminal 1  --> Arduino Digital Pin 5
+  - Terminal 2  --> Arduino GND
+
+Botão 3 (Posição Salva 1):
+  - Terminal 1  --> Arduino Digital Pin 6
+  - Terminal 2  --> Arduino GND
+
+Botão 4 (Posição Salva 2):
+  - Terminal 1  --> Arduino Digital Pin 7
+  - Terminal 2  --> Arduino GND
+
+### 3. MÓDULOS DE RELÉ
+Relé 1 (Controle Positivo):
+  - VCC         --> Arduino 5V
+  - GND         --> Arduino GND
+  - IN          --> Arduino Digital Pin 8
+
+Relé 2 (Controle Negativo):
+  - VCC         --> Arduino 5V
+  - GND         --> Arduino GND
+  - IN          --> Arduino Digital Pin 9
+
+### 4. MOTOR DC (Através dos Relés)
+Fonte 12V (+)   --> Relé 1 COM
+Relé 1 NA       --> Motor Terminal A
+Relé 2 NF       --> Motor Terminal A
+
+Fonte 12V (-)   --> Relé 2 COM
+Relé 2 NA       --> Motor Terminal B
+Relé 1 NF       --> Motor Terminal B
+
+### 5. ALIMENTAÇÃO
+- Arduino USB ou Jack DC (7-12V)
+- Fonte externa 12V para motor (conectada aos relés)
+- GND comum entre Arduino e fonte do motor
+
+## Dicas para montagem no Fritzing:
+1. Comece posicionando o Arduino no centro
+2. Coloque o sensor ultrassônico na parte superior
+3. Distribua os 4 botões na parte inferior
+4. Posicione os relés à direita do Arduino
+5. Use cores diferentes para facilitar: Vermelho (5V), Preto (GND), outras cores para sinais
