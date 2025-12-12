@@ -1,0 +1,16 @@
+# Arduino
+*.hex
+*.elf
+*.map
+build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
