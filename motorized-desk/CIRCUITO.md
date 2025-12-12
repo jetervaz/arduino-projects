@@ -106,8 +106,9 @@ Motor Terminal B <---- Relé 2 COM
 ## Notas de Segurança
 
 1. **Configuração segura:** Com COM nos motores e NA/NF na fonte, não há risco de curto mesmo se ambos relés ativarem
-2. Adicione diodo 1N4007 em paralelo com o motor (proteção contra EMF reversa)
+2. **NÃO use diodo simples** em paralelo com motor de inversão - causaria curto! Use capacitor (100nF-1µF) se quiser reduzir faísca
 3. Use fonte adequada para o motor (corrente suficiente)
 4. Verifique a tensão do motor antes de conectar
-5. Considere adicionar fusível na linha de alimentação do motor
+5. Adicione fusível na linha de alimentação do motor (recomendado)
 6. Teste sem carga primeiro para verificar direção de rotação
+7. Relés mecânicos aguentam flyback do motor sem proteção especial

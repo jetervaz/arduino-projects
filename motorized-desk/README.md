@@ -20,7 +20,7 @@ Sistema de controle inteligente para mesa motorizada com altura ajustável, usan
 | Sensor HC-SR04 | 1 | Sensor ultrassônico |
 | Botões Push Button | 4 | Normalmente aberto |
 | Resistores 10kΩ | 4 | Para pull-down (ou usar pull-up interno) |
-| Diodo 1N4007 | 1 | Proteção do motor |
+| Capacitor 100nF-1µF | 1 | Opcional - reduz faísca nos relés |
 | Fonte 12V | 1 | Para alimentar o motor (corrente adequada) |
 | Protoboard | 1 | Para montagem |
 | Jumpers | - | Diversos |
@@ -129,11 +129,12 @@ Abra o Monitor Serial (115200 baud) para ver:
 
 - O código implementa limites de altura mínima e máxima
 - **Configuração segura:** COM conectado ao motor elimina risco de curto-circuito mesmo se ambos relés ativarem
-- Adicione fusível na linha de alimentação do motor
-- Use diodo de proteção em paralelo com o motor (1N4007 ou similar)
+- Adicione fusível na linha de alimentação do motor (recomendado)
+- **NÃO use diodo simples** em paralelo - causaria curto ao inverter! Use capacitor (100nF-1µF) se quiser reduzir faísca
 - Teste o circuito sem carga antes de conectar o motor real
 - Verifique todas as conexões antes de ligar
 - GND comum entre Arduino e fonte do motor é essencial
+- Relés mecânicos são robustos contra flyback do motor
 
 ## Solução de Problemas
 
