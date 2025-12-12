@@ -47,14 +47,20 @@ Relé 2 (Controle Negativo):
   - GND         --> Arduino GND
   - IN          --> Arduino Digital Pin 9
 
-### 4. MOTOR DC (Através dos Relés)
-Fonte 12V (+)   --> Relé 1 COM
-Relé 1 NA       --> Motor Terminal A
-Relé 2 NF       --> Motor Terminal A
+### 4. MOTOR DC E FONTE (Configuração Segura - COM como saída)
+IMPORTANTE: COM conectado no motor (SAÍDA) | NA/NF conectados na fonte (ENTRADA)
 
-Fonte 12V (-)   --> Relé 2 COM
-Relé 2 NA       --> Motor Terminal B
-Relé 1 NF       --> Motor Terminal B
+Fonte 12V (+)   --> Relé 1 NA (Normalmente Aberto)
+Fonte 12V (+)   --> Relé 2 NF (Normalmente Fechado)
+
+Fonte 12V (-)   --> Relé 1 NF (Normalmente Fechado)
+Fonte 12V (-)   --> Relé 2 NA (Normalmente Aberto)
+
+Relé 1 COM      --> Motor Terminal A
+Relé 2 COM      --> Motor Terminal B
+
+Explicação: Os relés recebem a fonte nos contatos NA/NF e entregam
+para o motor através do COM. Isso evita completamente curto-circuito!
 
 ### 5. ALIMENTAÇÃO
 - Arduino USB ou Jack DC (7-12V)

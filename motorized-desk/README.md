@@ -51,26 +51,27 @@ Todos os botões conectados entre o pino e GND (pull-up interno ativado)
 
 Consulte o arquivo `CIRCUITO.md` para diagrama detalhado e `FRITZING-CONNECTIONS.txt` para montagem no Fritzing.
 
-### Configuração dos Relés (Inversão de Polaridade)
+### Configuração dos Relés (Inversão de Polaridade - Configuração Segura)
 
-Os relés formam uma ponte H simplificada que inverte a polaridade do motor:
+Os relés formam uma ponte H simplificada usando **COM como saída** para o motor e **NA/NF como entradas** da fonte. Esta configuração elimina o risco de curto-circuito.
 
-**Para Subir (Relé1=HIGH, Relé2=LOW)**
+**Conexões:**
 ```
-+12V → Relé1 NA → Motor+
-GND  → Relé2 COM → Motor-
-```
-
-**Para Descer (Relé1=LOW, Relé2=HIGH)**
-```
-+12V → Relé1 NF → Motor-
-GND  → Relé2 NA → Motor+
++12V → Relé1 NA  |  +12V → Relé2 NF
+GND  → Relé1 NF  |  GND  → Relé2 NA
+Motor A ← Relé1 COM  |  Motor B ← Relé2 COM
 ```
 
-**Parado (Ambos=LOW)**
-```
-Motor desconectado da alimentação
-```
+**Estados:**
+
+| Relé1 | Relé2 | Motor A | Motor B | Resultado |
+|-------|-------|---------|---------|-----------|
+| LOW   | LOW   | GND     | GND     | Parado    |
+| HIGH  | LOW   | +12V    | GND     | Sobe      |
+| LOW   | HIGH  | GND     | +12V    | Desce     |
+| HIGH  | HIGH  | +12V    | +12V    | Parado (seguro!) |
+
+**Vantagem:** Impossível curto-circuito mesmo se ambos relés ativarem!
 
 ## Instalação do Código
 
@@ -127,11 +128,12 @@ Abra o Monitor Serial (115200 baud) para ver:
 ## Segurança
 
 - O código implementa limites de altura mínima e máxima
-- **NUNCA** os dois relés são ativados simultaneamente (previne curto-circuito)
+- **Configuração segura:** COM conectado ao motor elimina risco de curto-circuito mesmo se ambos relés ativarem
 - Adicione fusível na linha de alimentação do motor
-- Use diodo de proteção em paralelo com o motor
+- Use diodo de proteção em paralelo com o motor (1N4007 ou similar)
 - Teste o circuito sem carga antes de conectar o motor real
 - Verifique todas as conexões antes de ligar
+- GND comum entre Arduino e fonte do motor é essencial
 
 ## Solução de Problemas
 

@@ -52,42 +52,38 @@ VCC      --->    5V
 GND      --->    GND
 ```
 
-### Configuração dos Relés para Controle do Motor
+### Configuração dos Relés para Controle do Motor (Configuração Segura)
+
+**COM conectado no motor (SAÍDA) | NA/NF conectados na fonte (ENTRADA)**
 
 ```
-Fonte +12V ----+
+Fonte +12V ----+-----> Relé 1 NA
                |
-            [Relé 1 COM]
-               |
-         +-----+-----+
-         |           |
-    [Relé 1 NA]  [Relé 1 NF]
-         |           |
-         |           +--------> Motor Terminal 1
-         |
-         +-------------------> Motor Terminal 2
+               +-----> Relé 2 NF
 
-Fonte GND -----+
+Fonte GND  ----+-----> Relé 1 NF
                |
-            [Relé 2 COM]
-               |
-         +-----+-----+
-         |           |
-    [Relé 2 NA]  [Relé 2 NF]
-         |           |
-         |           +--------> Motor Terminal 2
-         |
-         +-------------------> Motor Terminal 1
+               +-----> Relé 2 NA
+
+Motor Terminal A <---- Relé 1 COM
+Motor Terminal B <---- Relé 2 COM
 ```
+
+**Explicação:**
+- O terminal COM de cada relé funciona como SAÍDA para o motor
+- Os contatos NA e NF funcionam como ENTRADA da fonte
+- Isso evita completamente a possibilidade de curto-circuito
 
 ## Estados dos Relés
 
-| Relé 1 | Relé 2 | Resultado        |
-|--------|--------|------------------|
-| LOW    | LOW    | Motor Parado     |
-| HIGH   | LOW    | Motor Sobe       |
-| LOW    | HIGH   | Motor Desce      |
-| HIGH   | HIGH   | EVITAR (curto)   |
+| Relé 1 | Relé 2 | Motor A recebe | Motor B recebe | Resultado           |
+|--------|--------|----------------|----------------|---------------------|
+| LOW    | LOW    | GND (via NF)   | GND (via NF)   | Parado (0V)         |
+| HIGH   | LOW    | +12V (via NA)  | GND (via NF)   | Motor Sobe          |
+| LOW    | HIGH   | GND (via NF)   | +12V (via NA)  | Motor Desce         |
+| HIGH   | HIGH   | +12V (via NA)  | +12V (via NA)  | Parado (0V) - Seguro! |
+
+**Vantagem:** Mesmo se ambos relés ativarem (HIGH), não há curto-circuito, apenas motor parado!
 
 ## Diagrama Completo
 
@@ -109,8 +105,9 @@ Fonte GND -----+
 
 ## Notas de Segurança
 
-1. **Importante:** Nunca ativar ambos relés simultaneamente (evita curto-circuito)
+1. **Configuração segura:** Com COM nos motores e NA/NF na fonte, não há risco de curto mesmo se ambos relés ativarem
 2. Adicione diodo 1N4007 em paralelo com o motor (proteção contra EMF reversa)
 3. Use fonte adequada para o motor (corrente suficiente)
 4. Verifique a tensão do motor antes de conectar
 5. Considere adicionar fusível na linha de alimentação do motor
+6. Teste sem carga primeiro para verificar direção de rotação
